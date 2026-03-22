@@ -1,11 +1,16 @@
 let userScore = 0;
-let computerScore = 30;
+const computerScore = prompt("Enter score to chase: ");
 let isGameOver = false;
 
 const buttons = document.querySelectorAll('button');
 const userScoreDisplay = document.querySelectorAll('h3')[0];
 const compScoreDisplay = document.querySelectorAll('h3')[1];
 const result = document.getElementById('result');
+
+compScoreDisplay.innerText = `Computer Score: ${computerScore}`;
+
+const winSound = "https://www.myinstants.com/media/sounds/victory_sJDDywi.mp3";
+const looseSound = "https://www.myinstants.com/media/sounds/losing-cry.mp3"
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -20,7 +25,9 @@ buttons.forEach(button => {
             
             if (userScore < computerScore) {
                 result.innerText = `You lost by ${computerScore - userScore} runs!`;
-            } else if (userScore === computerScore) {
+                const audio = new Audio(looseSound).play();    
+            }
+            else if (userScore === computerScore) {
                 result.innerText = `Match Tied!`;
             }
         } 
@@ -31,6 +38,7 @@ buttons.forEach(button => {
             if (userScore > computerScore) {
                 result.innerText = `Congrats! You won by ${userScore - computerScore} runs!`;
                 isGameOver = true;
+                const audio = new Audio(winSound).play();
             }
         }
     });
